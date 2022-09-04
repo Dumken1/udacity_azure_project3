@@ -7,13 +7,14 @@ stages:
       name: Hosted Ubuntu 1604
     steps:
     - task: CmdLine@2
-      displayName: DISPLAY NAME
+      displayName: Install Newman
+      inputs:
+        script: 'sudo npm install -g newman'
+        workingDirectory: $(System.DefaultWorkingDirectory)
+
+    - task: CmdLine@2
+      displayName: Run Newman Tests
       continueOnError: true
       inputs:
-        script: 'COMMAND StarterAPIs.json'
-        workingDirectory: 'starter-code/automatedtesting/postman'
-    - task: CmdLine@2
-      displayName: DISPLAY NAME
-      inputs:
-        script: 'COMMAND'
-        workingDirectory: DEFAULT WORKING DIRECTORY
+        script: 'newman run starterapis.json'
+        workingDirectory: 'automatedtesting/postman'
